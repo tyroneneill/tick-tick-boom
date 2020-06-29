@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package com.uk.pricing;
+
+service PriceService {
+  rpc GetPrice(PriceRequest) returns (PriceResponse);
+  rpc GetPriceStream(PriceRequest) returns (stream PriceResponse);
+}
+
+message PriceRequest {
+  string symbol = 1;
+}
+
+message PriceResponse {
+  Price price = 1;
+}
+
+message Price {
+  enum Status {
+    AVAILABLE = 0;
+    LOCKED = 1;
+  }
+  string symbol = 1;
+  float bid = 2;
+  float ask = 3;
+  Status status = 4;
+}
